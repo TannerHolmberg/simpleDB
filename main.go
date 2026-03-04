@@ -16,7 +16,7 @@ func main() {
 	//Read input from stdin
 	in := bufio.NewScanner(os.Stdin)
 
-	//For large input, increase the buffer size
+	// For large input, increase the buffer size
 	in.Buffer(make([]byte, 0, 64*1024), 1024*1024)
 
 	for in.Scan() {
