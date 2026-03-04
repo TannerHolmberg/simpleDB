@@ -9,7 +9,7 @@ func parseInput(input string) (Command string, key string, value string, ok bool
 	line := strings.TrimSpace(input)
 	//Check for exit command (case-insensitive)
 	if strings.EqualFold(line, "EXIT") {
-		return "EXIT", "", "", false
+		return "EXIT", "", "", true
 	}
 
 	//Split the line into parts
@@ -30,7 +30,7 @@ func parseInput(input string) (Command string, key string, value string, ok bool
 		if len(parts) < 3 {
 			return "Invalid", "", "", true
 		}
-		return "SET", parts[1], parts[2], true
+		return "SET", parts[1], strings.Join(parts[2:], " "), true
 	default:
 		return "Invalid", "", "", true
 	}

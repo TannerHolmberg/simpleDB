@@ -7,7 +7,11 @@ import (
 )
 
 func main() {
-	index := NewIndex()
+	s, err := openStore("data.db")
+	if err != nil {
+		return
+	}
+	defer s.file.Close()
 
 	//Read input from stdin
 	in := bufio.NewScanner(os.Stdin)
@@ -32,16 +36,21 @@ func main() {
 
 		switch cmd {
 		case "GET":
-			indexValue, found := index.Get(key)
+			Value, found := s.Get(key)
 			if found {
-				fmt.Println(indexValue)
+				fmt.Println(Value)
 			}
 		case "SET":
-			index.Set(key, value)
+			_ = s.Set(key, value)
 		case "Invalid":
 			continue
 		}
 
+	}
+
+	if err := in.Err(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 
 }

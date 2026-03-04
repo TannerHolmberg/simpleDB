@@ -10,7 +10,8 @@ func NewIndex() *Index {
 	return &Index{items: make([]Entry, 0, 128)}
 }
 
-// Get does a linear scan: O(n)
+// Get does a linear scan: O(n) and returns the value associated with the key if found,
+// along with a boolean indicating whether the key was found.
 func (idx *Index) Get(key string) (string, bool) {
 	for i := 0; i < len(idx.items); i++ {
 		if idx.items[i].Key == key {
@@ -20,7 +21,8 @@ func (idx *Index) Get(key string) (string, bool) {
 	return "", false
 }
 
-// still performs a linear scan to find the key, but updates the value if found. If the key is not found, it appends a new Entry to the items slice. This method also has O(n) time complexity due to the linear scan.
+// still performs a linear scan to find the key, but updates the value if found. If the key is not found,
+// it appends a new Entry to the items slice. This method also has O(n) time complexity due to the linear scan.
 func (idx *Index) Set(key, value string) {
 	for i := 0; i < len(idx.items); i++ {
 		if idx.items[i].Key == key {
