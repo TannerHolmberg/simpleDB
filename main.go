@@ -39,6 +39,8 @@ func main() {
 			Value, found := s.Get(key)
 			if found {
 				fmt.Println(Value)
+			} else {
+				fmt.Println()
 			}
 		case "SET":
 			_ = s.Set(key, value)
